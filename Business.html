@@ -219,6 +219,48 @@
     <div id="yogurt-result"></div>
   </section>
 
+  <!-- Feedback Form Section -->
+  <section>
+    <h2>Send Us Feedback</h2>
+    <form id="feedback-form" action="https://formspree.io/f/movegrrj" method="POST">
+      <label for="email">Your Email:</label>
+      <input type="email" name="email" id="email" required>
+
+      <label for="message">Your Message:</label>
+      <textarea name="message" id="message" rows="5" required></textarea>
+
+      <button type="submit">Send Feedback</button>
+    </form>
+    <p id="success-message" style="color: green; display: none; text-align: center; margin-top: 10px;">
+      Thank you for your feedback! We'll get back to you soon.
+    </p>
+
+    <script>
+      const form = document.getElementById('feedback-form');
+      const successMessage = document.getElementById('success-message');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          form.reset();
+          successMessage.style.display = 'block';
+        } else {
+          alert("Oops! Something went wrong.");
+        }
+      });
+    </script>
+  </section>
+
   <footer>
     <p>Website created by Ermias Wondimu</p>
   </footer>
@@ -245,7 +287,6 @@
       document.getElementById("yogurt-result").innerHTML = `<p>Annual Yogurt Revenue: ${result.toLocaleString()} ETB</p>`;
     }
   </script>
-  <a href="main/index.html">Home</a>
+
 </body>
 </html>
-<!-- End of Business.html -->
